@@ -1,0 +1,17 @@
+# .gitignore
+# Ignore Node.js related files
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
+# Ignore client environment files
+client/.env
+client/node_modules/
+
+# Ignore server environment files
+server/.env
+server/node_modules/
+
+# Ignore production build output
+client/build/
