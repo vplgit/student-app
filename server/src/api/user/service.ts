@@ -72,7 +72,6 @@ class Service {
   getModuleUpdateSaveCountList = async () => {
     try {
       const result = await query.getModuleUpdateSaveCountList();
-      console.log("Result : ", result);
       if (result != undefined || null) {
         return {
           statusCode: status_codes.success,

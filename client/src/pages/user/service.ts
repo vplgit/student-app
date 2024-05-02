@@ -27,7 +27,6 @@ export const api_service = {
   },
 
   get_update_save_count: async () => {
-    console.log("here");
     return instance.get("/user/update_save_count");
   },
 };

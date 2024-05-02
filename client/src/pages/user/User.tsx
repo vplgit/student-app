@@ -33,16 +33,8 @@ export const User = () => {
   const [module_row_id, set_module_row_id] = useState()
   const [is_new_add_toggle, set_is_new_add_toggle] = useState(false)
   const [is_update_toggle, set_is_update_toggle] = useState(false)
-  const [is_module_update, set_is_module_update] = useState(false)
   const [res_message, set_res_message] = useState('')
   const common_catch_handler = (error: any) => {
-    console.log(
-      'Exception_Error_User_38 : ',
-      error.response.data.error ??
-        error.response.data.message ??
-        error.message ??
-        error,
-    )
     set_res_message(
       error.response.data.error ??
         error.response.data.message ??
@@ -103,6 +95,7 @@ export const User = () => {
   }
 
   const handleEditClick = async (row: any) => {
+    set_is_new_add_toggle(false)
     set_is_update_toggle(true)
     set_module_row_id(row.id)
     set_new_module_data({
@@ -111,7 +104,6 @@ export const User = () => {
       email: row.email,
       contact: row.contact,
     })
-    set_is_module_update(true)
   }
 
   useEffect(() => {
@@ -119,7 +111,6 @@ export const User = () => {
     const manageData = async () => {
       try {
         const response_data = await module_data()
-        console.log('response_data : ', response_data)
         set_module_list(response_data)
       } catch (error) {
         common_catch_handler(error)

@@ -22,15 +22,12 @@ class Query {
   //update existing record of database based on selective user
   updateModuleData = async (body: User) => {
     try {
-      console.log("listing", body);
       const update_id = body.module_row_id;
       delete body.module_row_id;
       const result = await knex(tables.USER_TABLE)
         .update(body, ["id", "data_update"])
         .where("id", update_id);
-
-      const res = await this.change_count(result, "data_update");
-      console.log("rex:", res);
+       await this.change_count(result, "data_update");
       return result;
     } catch (error) {
       //console.log("Error : ", error);
