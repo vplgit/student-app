@@ -9,6 +9,7 @@ yarn.lock
 client/.env
 client/node_modules/
 
+
 # Ignore server environment files
 server/.env
 server/node_modules/
