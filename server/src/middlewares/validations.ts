@@ -1,10 +1,10 @@
-import { userSchema } from "../api/user/user.model";
+import { studentValidationSchema } from "../api/student/student.model";
 import { messages } from "../common/messages";
 
 //Middleware for validating request payload
 export const validateForm = async (req: any, res: any, next: any) => {
   try {
-    const { error, value } = userSchema.validate(req.body, {
+    const { error, value } = studentValidationSchema.validate(req.body, {
       abortEarly: false,
     });
     if (error) {

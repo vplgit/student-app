@@ -3,30 +3,32 @@ import { tables } from "../tables";
 export const migrationScript = async () => {
   try {
     let is_table_exists: boolean;
-    is_table_exists = await knex.schema.hasTable(tables.API_LOG);
+    is_table_exists = await knex.schema.hasTable(tables.STUDENT_TABLE);
 
-    //creatinf tables schema if tables does not exists
+    //creating tables schema if tables does not exists
     if (!is_table_exists) {
-      await knex.schema.createTable(tables.API_LOG, (table: any) => {
-        table.increments();
-        table.string("request_method");
-        table.string("request_path");
-        table.string("process_time");
+      await knex.schema.createTable(tables.STUDENT_TABLE, (table: any) => {
+        table.increments("id").primary();
+        table.string("first_name", 255).notNullable();
+        table.string("last_name", 255).notNullable();
+        table.string("email", 255).unique().notNullable();
         table.timestamps(true, true);
       });
     }
-    //creatinf tables schema if tables does not exists
-    is_table_exists = await knex.schema.hasTable(tables.USER_TABLE);
+    //creating tables schema if tables does not exists
+    is_table_exists = await knex.schema.hasTable(tables.MARKS_TABLE);
     if (!is_table_exists) {
-      await knex.schema.createTable(tables.USER_TABLE, (table: any) => {
-        table.increments();
-        table.string("first_name");
-        table.string("last_name");
-        table.string("email");
-        table.string("contact");
-        table.integer("data_save");
-        table.integer("data_update");
+      await knex.schema.createTable(tables.MARKS_TABLE, (table: any) => {
+        table.increments("id").primary();
+        table.integer("student_id").unsigned().notNullable();
+        table.string("subject_name", 255).notNullable();
+        table.integer("marks").notNullable();
         table.timestamps(true, true);
+        table
+          .foreign("student_id")
+          .references("id")
+          .inTable(tables.STUDENT_TABLE)
+          .onDelete("CASCADE");
       });
     }
   } catch (error) {

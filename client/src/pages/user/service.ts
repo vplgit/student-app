@@ -5,28 +5,26 @@ const instance = axios.create({
   baseURL: config.serverUrl,
 });
 
-interface User {
-  module_row_id?: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  contact: string;
-}
-
 export const api_service = {
-  add_data: async (data: User) => {
-    return instance.post("/user/save", data);
+  add_data: async (data: any) => {
+    return instance.post("/student", data);
   },
 
-  update_data: async (data: User) => {
-    return instance.put("/user/update", data);
+  update_data: async (data: any) => {
+    return instance.put(`/student/${data.module_row_id}`, data.body);
   },
 
-  list_data: async () => {
-    return instance.get("/user/list");
+  list_data: async (body: any) => {
+    return instance.get(
+      `/student/${body.pagination.offset}/${body.pagination.limit}`
+    );
   },
 
-  get_update_save_count: async () => {
-    return instance.get("/user/update_save_count");
+  list_data_by_params: async () => {
+    return instance.get("/student");
+  },
+
+  delete_data_by_params: async (module_row_id: any) => {
+    return instance.delete(`/student/${module_row_id}`);
   },
 };
